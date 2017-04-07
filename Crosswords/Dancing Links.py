@@ -110,7 +110,7 @@ def gdl(matrix):
                 continue
             count = count + 1
             temp[j].append([i,j,count])
-    for j in range(cols):
+    for j in range(cols): 
         dlinks[j+1].up = temp[j][-1][2]
         dlinks[j+1].down = temp[j][0][2]
         dlinks[temp[j][0][2]].up = j+1
@@ -125,7 +125,7 @@ def gdl(matrix):
 
     
 #generate matrix    
-def gm(tCrosswords): 
+def gm(tCrosswords, GRID): 
     matrix = []      
     rows = len(tCrosswords)  
     cols = len(tCrosswords[0])    
@@ -146,7 +146,8 @@ def gm(tCrosswords):
                         temp.append(0)
                 matrix.append(temp)
             else:
-                for num in range(9):
+                for num1 in GRID[i][j].getallalter():
+                    num = num1 - 1
                     temp = []
                     th1 = 9*i + num
                     th2 = 9*j + num + 81
@@ -247,9 +248,10 @@ def isnosolution(dlinks):
 if __name__ == '__main__':
     start = time.time()
 #    逻辑求解
-    tCrosswords = Crosswords.solve(tCrosswords1)[0]
+    [tCrosswords,count,GRID] = Crosswords.solve(tCrosswords2)
 #    dancinglinks 求解
-    matrix = gm(tCrosswords)
+    matrix = gm(tCrosswords, GRID)
+    print(len(matrix),len(matrix[0]))
     [dlinks, cols] = gdl(matrix)
     ans = []
     dance(dlinks, 0)
@@ -269,6 +271,6 @@ if __name__ == '__main__':
         j = int((temp[1] - temp[0] + temp[3])/10)
         num = int((9*temp[0] + temp[1] - 9*temp[3])/10 + 1)
         tCrosswords[i][j] = num
-#    print(numpy.array(tCrosswords))
-    print('纯回溯用时%s'%(end - start))
+    print(numpy.array(tCrosswords))
+    print('用时%s'%(end - start))
         
