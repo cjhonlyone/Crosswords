@@ -154,7 +154,7 @@ def solve(Crosswords):
                 break
             lastcount = count
         cnt = cnt + 1                                                                                     
-    return [Crosswords, count]            
+    return [Crosswords, count, GRID]            
 #        for i0 in range(3):
 #            for j0 in range(3):
 #                i = i0 * 3
